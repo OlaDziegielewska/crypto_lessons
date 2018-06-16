@@ -1,0 +1,22 @@
+=== Scenariusz 
+
+Czesc,
+udalo nam sie przechwycic zaszyfrowana komunikacje nowego pracownika z administratorem z firmy Evil Corp. Nasi ludzie od krypto sa na razie niedostepni wiec zglaszamy sie do Ciebie. Podczas jednego z atakow udalo nam sie ustalic, ze w Evil Corp uzywaja szyfrow blokowych w trybie CTR. Ponizej znajduja sie kolejne czesci przechwyconej komunikacji. Pomoz nam wyciagnac haslo z tej wiadomosci. Dodatkowo przesylamy Ci wczesniejsza komunikacje administratora z nowym pracownikiem.
+
+Wiadomosc nr1:
+Dzien dobry,Adamie czy moglbys mi wyslac haslo do mojego konta w usludze Office365? 
+
+Wiadomosc nr2:
+Dzien dobry,Aniu wysle haslo jutro rano poniewaz dzisiaj mam duzo na glowie.
+
+Zaszyfrowana wiadomosc od administratora ( kazda linijka to jedna czesc - blok ):
+
+	DA 7B 19 18 4B B3 CC 0E  63 90 8D 1F CC 70 87 A3  .{..K...c....p..
+	15 E6 17 45 1B 75 8A B1  96 64 28 D5 C1 65 EA DD  ...E.u...d(..e..
+	A0 47 7C 87 66 1D ED 34  09 AE 96 DF A8 C2 3B E2  .G|.f..4......;.
+	33 2E 06 3C 54 1E F5 16  A0 36 CE 29 5C 2F 9B 00  3..<T....6.)\/..
+	E5 0F 1B 7E 70 1F 61 8B  81 06 2B 11 9C 26 84 9B  ...~p.a...+..&..
+	2E A3 FC 08 E9 C4 65 47  43 30 A5 CE EE 8E B6 75  ......eGC0.....u
+	F2 1A E2 2C A2 31 55 E8  47 D6 25 6A 46 D6 4F 24  ...,.1U.G.%jF.O$
+	F6 60 03 11 4A A9 DC 00  6B 8C 91 5B EC 6D 82 B9  .`..J...k..[.m..
+	  

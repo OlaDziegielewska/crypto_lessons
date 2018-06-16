@@ -1,0 +1,13 @@
+
+== Cel ataku 
+
+Celem ataku może być eskalacja uprawnień lub przekazanie do aplikacji znaku, którego się nie spodziewa.
+
+=== Scenariusz
+
+Czesc,
+
+podczas jednego z atakow na Evil Corp udalo nam sie uzyskac dostep do jednej z aplikacji na prawach uzytkownika lamer. Musimy jak najszybciej zdobyc konto administratora zeby zaszkodzic dzialalnosci Evil Corp. Pozniej udostepnilismy Ci formularz, ktory przesyla dane bezposrednio do aplikacji tej firmy. Przesylane sa dwie wartosci IV oraz zaszyfrowany ciag. To jest jakis token, w ktorym prawdopodobnie zaszyte sa uprawnienia. Pomozesz nam ?
+
+Elliot
+

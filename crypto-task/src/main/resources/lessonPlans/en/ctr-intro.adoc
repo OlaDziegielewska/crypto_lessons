@@ -1,0 +1,64 @@
+== Tryb CTR
+W trybie CTR wiadomość dzielimy na bloki. W tym przykładzie będziemy rozważać bloki o długości 16B. Tryb CTR w procesie szyfrowania używa wartości IV oraz tzw liczników. Licznik powinien być różnych dla każdego bloku. Wartość IV jest łączona z licznikiem. Nastepnie powstały wynik jest poddwany rutynie szyfrowania. Na koniec ten wynik jest XORowany z blokiem wiadomości. Zaletą tego podejścia jest to, że operacje mogą być wykonywane równolegle. Można powiedzieć, że tryb CTR sprawia, że każdy blok jest szyfrowany strumieniowo, a kolejne bloki nie zależą od poprzednich. Tryb CTR musi być zgodny z prawem szyfrów strumieniowych - wartość IV nie powinna się nigdy powtarzać dla tego samego klucza. Poniżej widać jak przebiega proces szyfrowania
+
+image::images/ctr_encryption.png[CTR encryption process,1397,645,style="lesson-image"]
+
+Proces deszyfrowania przebiega w ten sam sposób. Tylko zamiast XORować czysty tekst xorujemy szyfrogram.
+
+image::images/ctr_decrypt.png[CTR decryption process,1397,645,style="lesson-image"]
+
+=== Przykład
+Załóżmy, że wartość IV co jakiś czas się powtarza i jest używana do zaszyfrowania wiadomości, którą znamy lub jesteśmy w stanie ją odgadnąć. Dodatkowo przechwyciliśmy blok, który został zaszyfrowany przy użyciu tego samego IV ale wartości tego bloku (tekstu jawengo) nie znamy i chcemy ją odzyskać. Jest to możliwe przy zrobieniu prostej operacji XOR.
+
+DE DB 00 11 23 1F 2F 10  86 86 A1 C6 14 78 C7 F9  ....#./......x.. -> Hej, przesylam p
+
+F3 CD 0F 51 23 5E 6F 59  D7 C4 EA 9B 47 26 D5 B8  ...Q#^oY....G&.. -> ????????????????
+
+Wiemy, że obie wiadomości zostały zaszyfrowane przy użyciu takiej samej wartości IV oraz znamy pierwszą wiadomość - znamy tekst jawny.
+ 
+PC1_n - zaszyfrowany znak znanego tekstu
+
+Cn - znak szyfrogramu, ktory chcemy odszyfrowac
+
+IVn - bajt z IV
+
+IV1 = P1^PC1
+
+IV1 = ord(P1)^PC1_1
+
+PC2_1 = C1 ^ IV1
+...
+
+...
+
+...
+
+IVn = ord(Pn)^PC1_n
+
+PC2_n = Cn ^ IVn
+
+Dla przykładu:
+
+150 = 72 ^ 222
+
+e = 101 =150 ^ 243
+
+190 = 101 ^ 219
+
+s = 115 =190 ^ 205
+
+106 = 106 ^ 0
+
+e = 101 =106 ^ 15
+
+61 = 44 ^ 17
+
+l = 108 =61 ^ 81
+
+Wynik to: esel 12341212321
+
+=== Dodatkowe zrodla
+
+https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_(CTR)
+
+

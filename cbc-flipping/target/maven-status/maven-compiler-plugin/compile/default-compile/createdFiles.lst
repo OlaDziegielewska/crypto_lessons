@@ -1,0 +1,3 @@
+org/owasp/webgoat/plugin/CbcCipher.class
+org/owasp/webgoat/plugin/CbcFlipping.class
+org/owasp/webgoat/plugin/Verify.class

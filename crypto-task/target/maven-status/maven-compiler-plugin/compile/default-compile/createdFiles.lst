@@ -1,0 +1,2 @@
+org/owasp/webgoat/plugin/VerifyHash.class
+org/owasp/webgoat/plugin/CryptoTask.class

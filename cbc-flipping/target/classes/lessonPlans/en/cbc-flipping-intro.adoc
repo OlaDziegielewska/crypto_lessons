@@ -1,0 +1,47 @@
+== Tryb CBC
+CBC jest to tryb, który pracuje na stałej długości grupach bitów zwanych blokami. W naszym przypadku będziemy rozważać bloki składające się z 16B.
+
+Podczas ataku interesować nas będzie proces deszyfrowania. Deszyfrowanie polega na wzięciu pierwszego zaszyfrowanego bloku wykonaniu na nich odpowiednich operacji związanych z deszyfrowaniem, a następnie wykonanie operacji XOR na wyniku poprzedniej operacji. XOR jest robiony z tzw IV ( Initialization Vector ). Następny blok jest xorowany z pierwszym blokiem , kolejny z kolejnym itd. Jest to dobrze widoczne na poniższym rysunku.
+
+image::images/decrypt.png[CBC Decryption process,1397,645,style="lesson-image"]
+
+Jeżeli mamy kontrolę nad IV, to w łatwy sposób możemy zmodyfikować wartość, która zostanie zdeszyfrowana. Z kolei jeżeli zmodyfikujemy pierszy zaszyfrowany blok, to zmodyfikujemy plain text drugiego bloku. Takie zachowanie może być szczególnie niebzpieczne jeżeli aplikacja po zdeszyfrowaniu bloku podejmuje jakieś kroki np stwierdza, że użytkownik ma do czegoś dostęp. 
+
+Plaintext0 = Decrypt(Ciphertext0) XOR IV
+.
+.
+.
+PlaintextN = Decrypt(CiphertextN) XOR CiphertextN-1
+
+=== Przyklad
+Załóżmy, że aplikacja przyjmuje dane w formacie JSON w postaci:
+
+{"user_role":20}
+
+Poniżej znajdują się kolejne wartości odszyfrowanego ciągu po zmianie jego wartości IV. 
+04 FB EE D8 4A 14 CF 33  7E A1 40 0B DF C9 C5 7F  ....J..3~.@..... Zaszyfrowany ciąg
+
+68 33 33 62 64 39 34 62  31 31 36 38 64 37 65 34  h33bd94b1168d7e4 - IV
+
+7B 22 75 73 65 72 5F 72  6F 6C 65 22 3A 32 30 7D  {"user_role":20} - Odszyfrowany ciąg przy właściwym IV
+
+68 33 33 62 64 39 34 62  31 31 36 38 64 37 65 34  h33bd94b1168d7e4 - właściwy IV 
+
+7B 22 75 73 65 72 5F 72  6F 6C 65 22 3A 3D 30 7D  {"user_role":=0} - Odszyfrowany ciąg po zmianie 14 bajtu IV
+
+68 33 33 62 64 39 34 62  31 31 36 38 64 38 65 34  h33bd94b1168d8e4 - IV z innym 14 bajtem
+
+7B 22 75 73 65 72 5F 72  6F 6C 65 22 3A 3C 30 7D  {"user_role":<0} - Odszyfrowany ciąg po zmianie 14 bajtu IV
+
+68 33 33 62 64 39 34 62  31 31 36 38 64 39 65 34  h33bd94b1168d9e4 - IV z innym 14 bajtem
+
+7B 22 75 73 65 72 5F 72  6F 6C 65 22 3A 44 30 7D  {"user_role":D0} - Odszyfrowany ciąg po zmianie 14 bajtu IV
+
+68 33 33 62 64 39 34 62  31 31 36 38 64 41 65 34  h33bd94b1168dAe4 - IV z innym 14 bajtem
+
+Jak widać zmiana IV - 14 bajtu - powoduje zmianę odszyfrowanego ciągu. Zmeniając kolejne bajty możemy kontrolować to w jaki sposób ciąg jest deszyfrowany. 
+
+
+=== Dodatkowe zrodla
+https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
+https://resources.infosecinstitute.com/cbc-byte-flipping-attack-101-approach/#gref
